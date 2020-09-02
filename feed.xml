@@ -1,17 +1,426 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-08-27T12:16:28-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2020/08/27/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2020-08-27T12:15:43-04:00</published><updated>2020-08-27T12:15:43-04:00</updated><id>http://localhost:4000/jekyll/update/2020/08/27/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/08/27/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/blog.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog.github.io/" rel="alternate" type="text/html" /><updated>2020-09-02T15:34:11-04:00</updated><id>http://localhost:4000/blog.github.io/feed.xml</id><title type="html">LOFFER</title><subtitle>一个可以fork的博客</subtitle><entry><title type="html">LaTex渲染的说明和测试</title><link href="http://localhost:4000/blog.github.io/math-test/" rel="alternate" type="text/html" title="LaTex渲染的说明和测试" /><published>2019-07-24T00:00:00-04:00</published><updated>2019-07-24T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/math-test</id><content type="html" xml:base="http://localhost:4000/blog.github.io/math-test/">&lt;p&gt;LaTeX渲染已经在全站头部文件引入，可以直接使用，公式块上下使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$$&lt;/code&gt;标明，内联公式则用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Jekyll requires blog post files to be named according to the following format:&lt;/p&gt;
+&lt;p&gt;最好不要让公式出现在文章摘要里。&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YEAR-MONTH-DAY-title.MARKUP&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Jekyll的默认文章摘要是第一段，但是我在使用中发现它选取摘要不是很稳定，因此加入了手动摘要分割线，默认为&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;!-- more --&amp;gt;&lt;/code&gt;，并且加入了首页摘要的字符数限制。&lt;/p&gt;
 
-&lt;p&gt;Where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YEAR&lt;/code&gt; is a four-digit number, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MONTH&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DAY&lt;/code&gt; are both two-digit numbers, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MARKUP&lt;/code&gt; is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+&lt;p&gt;因此有特殊符号、内容的文章，建议将这些内容折叠在摘要以下。例如本文&lt;/p&gt;
 
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+&lt;!-- more --&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;Block math test&lt;/p&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry></feed>
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$$
+\begin{align*}
+y = y(x,t) &amp;amp;= A e^{i\theta} \\
+&amp;amp;= A (\cos \theta + i \sin \theta) \\
+&amp;amp;= A (\cos(kx - \omega t) + i \sin(kx - \omega t)) \\
+&amp;amp;= A\cos(kx - \omega t) + i A\sin(kx - \omega t)  \\
+&amp;amp;= A\cos \Big(\frac{2\pi}{\lambda}x - \frac{2\pi v}{\lambda} t \Big) + i A\sin \Big(\frac{2\pi}{\lambda}x - \frac{2\pi v}{\lambda} t \Big)  \\
+&amp;amp;= A\cos \frac{2\pi}{\lambda} (x - v t) + i A\sin \frac{2\pi}{\lambda} (x - v t)
+\end{align*}
+$$
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+\[\begin{align*}
+y = y(x,t) &amp;amp;= A e^{i\theta} \\
+&amp;amp;= A (\cos \theta + i \sin \theta) \\
+&amp;amp;= A (\cos(kx - \omega t) + i \sin(kx - \omega t)) \\
+&amp;amp;= A\cos(kx - \omega t) + i A\sin(kx - \omega t)  \\
+&amp;amp;= A\cos \Big(\frac{2\pi}{\lambda}x - \frac{2\pi v}{\lambda} t \Big) + i A\sin \Big(\frac{2\pi}{\lambda}x - \frac{2\pi v}{\lambda} t \Big)  \\
+&amp;amp;= A\cos \frac{2\pi}{\lambda} (x - v t) + i A\sin \frac{2\pi}{\lambda} (x - v t)
+\end{align*}\]
+
+&lt;p&gt;Inline math test &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$\lim_{x \to \infty} \exp(-x) = 0$&lt;/code&gt;, 
+$\lim_{x \to \infty} \exp(-x) = 0$&lt;/p&gt;</content><author><name></name></author><category term="sample" /><category term="document" /><summary type="html">LaTeX渲染已经在全站头部文件引入，可以直接使用，公式块上下使用$$标明，内联公式则用$. 最好不要让公式出现在文章摘要里。 Jekyll的默认文章摘要是第一段，但是我在使用中发现它选取摘要不是很稳定，因此加入了手动摘要分割线，默认为`</summary></entry><entry><title type="html">LOFFER使用基础教程</title><link href="http://localhost:4000/blog.github.io/document/" rel="alternate" type="text/html" title="LOFFER使用基础教程" /><published>2019-06-02T00:00:00-04:00</published><updated>2019-06-02T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/document</id><content type="html" xml:base="http://localhost:4000/blog.github.io/document/">&lt;p&gt;LOFFER是个可以帮助你get off from LOFTER的软件（我知道这个pun很烂）。&lt;/p&gt;
+
+&lt;p&gt;这是一个可以直接发布在GitHub page的Jekyll博客，你不需要编写代码或使用命令行即可配置属于你的LOFFER。&lt;/p&gt;
+
+&lt;p&gt;本文为针对完全没有代码基础的朋友的基础教程。&lt;/p&gt;
+
+&lt;h2 id=&quot;注意&quot;&gt;注意&lt;/h2&gt;
+
+&lt;p&gt;LOFFER是一个&lt;strong&gt;博客模板&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;虽然意图有针对lofter用户，但是我个人狠不赞同纯外链停车操作，你整整齐齐打理个自由自在没有敏感词的个人博客有啥不好。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;不要用我的Discus账户，请配置你自己的，本文档中有教程&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;如有疑问，请阅读&lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages官方说明&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&quot;图文教程&quot;&gt;图文教程&lt;/h2&gt;
+
+&lt;p&gt;注意以下需要上电脑操作。&lt;/p&gt;
+
+&lt;h3 id=&quot;第一步-使用这个template&quot;&gt;第一步 使用这个template&lt;/h3&gt;
+
+&lt;p&gt;请点击&lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;，注册一个GitHub账户，这是完全免费的，只要提供邮箱即可。&lt;/p&gt;
+
+&lt;p&gt;现在你看到的LOFFER，是作为一个GitHub上的Repository（代码库）存在的，我将之设为可以作为template（模板），你可以用这个模板来生成一份自己的LOFFER。&lt;/p&gt;
+
+&lt;p&gt;点击&lt;a href=&quot;https://github.com/FromEndWorld/LOFFER&quot;&gt;LOFFER&lt;/a&gt;，进入LOFFER的GitHub Repository页面，然后点&lt;strong&gt;Use this template&lt;/strong&gt;，如图所示。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/usetemplate.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;你会进入如下页面，请给你的博客起个名字，这里只能用字母和少数特殊字符，没有关系，这个名称并不影响你的博客页面显示。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/nameyourbolg.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;点击&lt;strong&gt;Create repository from template&lt;/strong&gt;，你很快就会看到如下页面，GitHub已经将LOFFER中所有的文件复制到你的新代码库中。&lt;/p&gt;
+
+&lt;p&gt;下一步，点击Settings，进入相关设置。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/Settings.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;向下拉页面，你会看到“GitHub Pages”，这是GitHub内置的网站host服务，选择master，如图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/pages.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在几秒钟后，刷新此页面，你通常会看到这个绿色的东西（如果没看到，多等一会），你的网站已经发布成功，点击这个链接，即可查看：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/published.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;你可能会看到网站长得很丑，这是因为样式表尚未从正确的地址加载，没关系，请继续下一步。&lt;/p&gt;
+
+&lt;h3 id=&quot;第二步-设置站点信息&quot;&gt;第二步 设置站点信息&lt;/h3&gt;
+
+&lt;p&gt;在你的博客的GitHub代码库页面里，选择Code，文件列表里选择_config.yml，点击打开，然后点击右上角笔形图标修改文档。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/config.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;关于如何修改站点信息，在文件内有文档说明。&lt;/p&gt;
+
+&lt;p&gt;修改完成后，点击&lt;strong&gt;Commit changes&lt;/strong&gt;（提交修改）。每次修改过代码库并且提交后，GitHub Pages都会自动重新发布网站，只要等上几分钟，再次刷新你的博客页面，就会看到你的修改了。这一修改完成后，你的博客站应该可以正常显示了。&lt;/p&gt;
+
+&lt;p&gt;如果刷新看不到效果，请使用“强刷新”，一般来说按ctrl+R。&lt;/p&gt;
+
+&lt;p&gt;还有一点，&lt;strong&gt;LOFFER使用的是MIT协议，大意就是全部开源随意使用，如果你要保留自己博文的权利，请编辑LICENSE文件，写上类似“博文作者保留权利”这样的内容。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;第三步-发布博文&quot;&gt;第三步 发布博文&lt;/h3&gt;
+
+&lt;p&gt;在你的博客的GitHub代码库页面里，点开_posts文件夹，这里面就是你的博客文章。&lt;/p&gt;
+
+&lt;p&gt;这些文章使用的格式是Markdown，文件后缀名是md，这是一种非常简单易用的有格式文本标记语言，你应该已经注意到，在LOFFER自带的示例性博文中有一篇中文的&lt;a href=&quot;https://fromendworld.github.io/LOFFER/chinese-markdown-cheatsheet/&quot;&gt;Markdown语法介绍&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;更简单的办法是使用&lt;a href=&quot;https://typora.io/&quot;&gt;Typora&lt;/a&gt;，这是一个全图形化界面，全实时预览的Markdown写作软件，非常轻量，而且免费。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/Typora.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在发布博文前，你需要在文章的头部添加这样的内容，包括你的文章标题，发布日期，作者名，和tag等。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
+layout: post
+title: LOFFER文档
+date: 2019-06-02
+Author: 来自中世界
+categories: 
+tags: [sample, document]
+comments: true
+--- 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;完成后，保存为.md文件，文件名是date-标题，例如 2019-06-02-document.md (注意这里的标题会成为这篇博文的链接，所以请使用字母而非中文，它不影响页面上显示的标题)，然后上传到_posts文件夹，再提交修改，很快就可以在博客上看到新文章了。&lt;/p&gt;
+
+&lt;h3 id=&quot;可选图片怎么办&quot;&gt;可选：图片怎么办？&lt;/h3&gt;
+
+&lt;p&gt;少量图片可以上传到images文件夹，然后在博文中添加。&lt;/p&gt;
+
+&lt;p&gt;但是GitHub用来当做图床有滥用之嫌，如果你的博客以图片为主，建议选择外链图床，例如&lt;a href=&quot;https://sm.ms/&quot;&gt;sm.ms&lt;/a&gt;就是和很好的选择。&lt;/p&gt;
+
+&lt;p&gt;要寻找更适合自己的图床，敬请搜索一下。&lt;/p&gt;
+
+&lt;p&gt;在博文中添加图片的Markdown语法是：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;![图片名](URL)&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;可选添加评论区&quot;&gt;可选：添加评论区&lt;/h3&gt;
+
+&lt;h4 id=&quot;disqus&quot;&gt;Disqus&lt;/h4&gt;
+
+&lt;p&gt;LOFFER支持Disqus评论，虽然Disqus很丑，但是它是免费的，设置起来又方便，因此大家也就不要嫌弃它。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：目前有一些LOFFER使用者没有修改示例站现有的Disqus配置，那么你用的就是我的Disqus站点，这样不好，不好……&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;请根据一下教程配置你自己的站点。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;首先，注册一个&lt;a href=&quot;https://disqus.com/&quot;&gt;Disqus&lt;/a&gt;账户，我们可以选择这个免费方案：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/Disqus-plan.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注册成功后，新建一个站点（site），以LOFFER为例设置步骤如下：&lt;/p&gt;
+
+&lt;p&gt;首先站点名LOFFER，生成了shortname是loffer，类型可以随便选。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/Disqus-1.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;安装时选择Jekyll。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/Disqus-2.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最后填入你的博客地址，语言可以选中文，点Complete，即可！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/Disqus-3.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后需要回到你的博客，修改_config.yml文件，在disqus字段填上你的shortname，commit，完成！&lt;/p&gt;
+
+&lt;h4 id=&quot;gitalk&quot;&gt;Gitalk&lt;/h4&gt;
+
+&lt;p&gt;LOFFER 0.2.0版本支持Gitalk评论区（在LOFFER示例站中仍然是Disqus，可以在&lt;a href=&quot;https://himring.top/gitalk/&quot;&gt;我的博客&lt;/a&gt;查看Gitalk的demo），设置方法如下：&lt;/p&gt;
+
+&lt;p&gt;首先，创建一个&lt;a href=&quot;https://github.com/settings/applications/new&quot;&gt;OAuth application&lt;/a&gt;, 设置如图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/application_settings.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;点Register后就会看到你所需要的两个值，clientID和clientSecret，把它们复制到你的_config.yml文件中相应的字段：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gitalk:
+  clientID: &amp;lt;你的clientID&amp;gt;
+  clientSecret: &amp;lt;你的clientSecret&amp;gt;
+  repo: &amp;lt;你的repository名称&amp;gt;
+  owner: &amp;lt;你的GitHub用户名&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后commit，你的Gitalk评论区就会出现了。第一次使用的时候，需要你来进入文章页，来初始化评论区，这一操作会在你的repository上创建一个Issue，此后的评论就是对这个Issue的回复。&lt;/p&gt;
+
+&lt;p&gt;你可以进入你的repository的Issue页面，点&lt;strong&gt;Unsubscribe&lt;/strong&gt;来避免收到大量相关邮件。&lt;/p&gt;
+
+&lt;p&gt;注意：出于很明显的原因，最好不要同时添加Disqus和Gitalk评论区。&lt;/p&gt;
+
+&lt;h3 id=&quot;导入lofter的内容&quot;&gt;导入LOFTER的内容&lt;/h3&gt;
+
+&lt;p&gt;这部分由于LOFTER的导出文件十分&lt;del&gt;优秀&lt;/del&gt;，需要另外解决。&lt;/p&gt;
+
+&lt;p&gt;诸位可以使用我修改的脚本&lt;a href=&quot;https://github.com/FromEndWorld/lofter2Jekyll&quot;&gt;lofter2Jekyll&lt;/a&gt;，功能为将lofter导出的文件转换成可用于Jekyll的MD文档，还可以将图片批量下载到本地。&lt;/p&gt;
+
+&lt;p&gt;也可以使用&lt;a href=&quot;http://underdream.lofter.com/post/38ea7d_1c5d8a983&quot;&gt;墨问非名太太的脚本&lt;/a&gt;，其中选择Jekyll输出即可。&lt;/p&gt;
+
+&lt;h2 id=&quot;致谢&quot;&gt;致谢&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll&lt;/a&gt; - 这是本站存在的根基&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/aweekj/kiko-now&quot;&gt;Kiko-now&lt;/a&gt; - 我首先是fork这个主题，然后再其上进行修改汉化，才有了LOFFER&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://fontawesome.com/&quot;&gt;Font Awesome&lt;/a&gt; - 社交网络图标来自FontAwesome的免费开源内容&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;帮助这个项目&quot;&gt;帮助这个项目&lt;/h2&gt;
+
+&lt;p&gt;介绍更多人来使用它，摆脱lofter自由飞翔！&lt;/p&gt;
+
+&lt;p&gt;当然如果单说写同人的话，我还是建议大家都去AO3，但是自家博客自己架也很酷炫，你还可以选择很多其他的Jeykll主题，GitHub上有很多，或者试试其他博客架设工具，例如Hexo，与代码斗其乐无穷。&lt;/p&gt;
+
+&lt;p&gt;最后，回到&lt;a href=&quot;https://github.com/FromEndWorld/LOFFER&quot;&gt;LOFFER&lt;/a&gt;，给我点一个☆吧！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/givemefive.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;</content><author><name>来自中世界</name></author><category term="sample" /><category term="document" /><summary type="html">LOFFER是个可以帮助你get off from LOFTER的软件（我知道这个pun很烂）。 这是一个可以直接发布在GitHub page的Jekyll博客，你不需要编写代码或使用命令行即可配置属于你的LOFFER。 本文为针对完全没有代码基础的朋友的基础教程。 注意 LOFFER是一个博客模板。 虽然意图有针对lofter用户，但是我个人狠不赞同纯外链停车操作，你整整齐齐打理个自由自在没有敏感词的个人博客有啥不好。 不要用我的Discus账户，请配置你自己的，本文档中有教程 如有疑问，请阅读GitHub Pages官方说明。 图文教程 注意以下需要上电脑操作。 第一步 使用这个template 请点击GitHub，注册一个GitHub账户，这是完全免费的，只要提供邮箱即可。 现在你看到的LOFFER，是作为一个GitHub上的Repository（代码库）存在的，我将之设为可以作为template（模板），你可以用这个模板来生成一份自己的LOFFER。 点击LOFFER，进入LOFFER的GitHub Repository页面，然后点Use this template，如图所示。 你会进入如下页面，请给你的博客起个名字，这里只能用字母和少数特殊字符，没有关系，这个名称并不影响你的博客页面显示。 点击Create repository from template，你很快就会看到如下页面，GitHub已经将LOFFER中所有的文件复制到你的新代码库中。 下一步，点击Settings，进入相关设置。 向下拉页面，你会看到“GitHub Pages”，这是GitHub内置的网站host服务，选择master，如图所示： 在几秒钟后，刷新此页面，你通常会看到这个绿色的东西（如果没看到，多等一会），你的网站已经发布成功，点击这个链接，即可查看： 你可能会看到网站长得很丑，这是因为样式表尚未从正确的地址加载，没关系，请继续下一步。 第二步 设置站点信息 在你的博客的GitHub代码库页面里，选择Code，文件列表里选择_config.yml，点击打开，然后点击右上角笔形图标修改文档。 关于如何修改站点信息，在文件内有文档说明。 修改完成后，点击Commit changes（提交修改）。每次修改过代码库并且提交后，GitHub Pages都会自动重新发布网站，只要等上几分钟，再次刷新你的博客页面，就会看到你的修改了。这一修改完成后，你的博客站应该可以正常显示了。 如果刷新看不到效果，请使用“强刷新”，一般来说按ctrl+R。 还有一点，LOFFER使用的是MIT协议，大意就是全部开源随意使用，如果你要保留自己博文的权利，请编辑LICENSE文件，写上类似“博文作者保留权利”这样的内容。 第三步 发布博文 在你的博客的GitHub代码库页面里，点开_posts文件夹，这里面就是你的博客文章。 这些文章使用的格式是Markdown，文件后缀名是md，这是一种非常简单易用的有格式文本标记语言，你应该已经注意到，在LOFFER自带的示例性博文中有一篇中文的Markdown语法介绍。 更简单的办法是使用Typora，这是一个全图形化界面，全实时预览的Markdown写作软件，非常轻量，而且免费。 在发布博文前，你需要在文章的头部添加这样的内容，包括你的文章标题，发布日期，作者名，和tag等。 --- layout: post title: LOFFER文档 date: 2019-06-02 Author: 来自中世界 categories: tags: [sample, document] comments: true --- 完成后，保存为.md文件，文件名是date-标题，例如 2019-06-02-document.md (注意这里的标题会成为这篇博文的链接，所以请使用字母而非中文，它不影响页面上显示的标题)，然后上传到_posts文件夹，再提交修改，很快就可以在博客上看到新文章了。 可选：图片怎么办？ 少量图片可以上传到images文件夹，然后在博文中添加。 但是GitHub用来当做图床有滥用之嫌，如果你的博客以图片为主，建议选择外链图床，例如sm.ms就是和很好的选择。 要寻找更适合自己的图床，敬请搜索一下。 在博文中添加图片的Markdown语法是：![图片名](URL) 可选：添加评论区 Disqus LOFFER支持Disqus评论，虽然Disqus很丑，但是它是免费的，设置起来又方便，因此大家也就不要嫌弃它。 注意：目前有一些LOFFER使用者没有修改示例站现有的Disqus配置，那么你用的就是我的Disqus站点，这样不好，不好…… 请根据一下教程配置你自己的站点。 首先，注册一个Disqus账户，我们可以选择这个免费方案： 注册成功后，新建一个站点（site），以LOFFER为例设置步骤如下： 首先站点名LOFFER，生成了shortname是loffer，类型可以随便选。 安装时选择Jekyll。 最后填入你的博客地址，语言可以选中文，点Complete，即可！ 然后需要回到你的博客，修改_config.yml文件，在disqus字段填上你的shortname，commit，完成！ Gitalk LOFFER 0.2.0版本支持Gitalk评论区（在LOFFER示例站中仍然是Disqus，可以在我的博客查看Gitalk的demo），设置方法如下： 首先，创建一个OAuth application, 设置如图： 点Register后就会看到你所需要的两个值，clientID和clientSecret，把它们复制到你的_config.yml文件中相应的字段： gitalk: clientID: &amp;lt;你的clientID&amp;gt; clientSecret: &amp;lt;你的clientSecret&amp;gt; repo: &amp;lt;你的repository名称&amp;gt; owner: &amp;lt;你的GitHub用户名&amp;gt; 然后commit，你的Gitalk评论区就会出现了。第一次使用的时候，需要你来进入文章页，来初始化评论区，这一操作会在你的repository上创建一个Issue，此后的评论就是对这个Issue的回复。 你可以进入你的repository的Issue页面，点Unsubscribe来避免收到大量相关邮件。 注意：出于很明显的原因，最好不要同时添加Disqus和Gitalk评论区。 导入LOFTER的内容 这部分由于LOFTER的导出文件十分优秀，需要另外解决。 诸位可以使用我修改的脚本lofter2Jekyll，功能为将lofter导出的文件转换成可用于Jekyll的MD文档，还可以将图片批量下载到本地。 也可以使用墨问非名太太的脚本，其中选择Jekyll输出即可。 致谢 Jekyll - 这是本站存在的根基 Kiko-now - 我首先是fork这个主题，然后再其上进行修改汉化，才有了LOFFER Font Awesome - 社交网络图标来自FontAwesome的免费开源内容 帮助这个项目 介绍更多人来使用它，摆脱lofter自由飞翔！ 当然如果单说写同人的话，我还是建议大家都去AO3，但是自家博客自己架也很酷炫，你还可以选择很多其他的Jeykll主题，GitHub上有很多，或者试试其他博客架设工具，例如Hexo，与代码斗其乐无穷。 最后，回到LOFFER，给我点一个☆吧！</summary></entry><entry><title type="html">Markdown语法简介</title><link href="http://localhost:4000/blog.github.io/chinese-markdown-cheatsheet/" rel="alternate" type="text/html" title="Markdown语法简介" /><published>2013-07-16T00:00:00-04:00</published><updated>2013-07-16T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/chinese-markdown-cheatsheet</id><content type="html" xml:base="http://localhost:4000/blog.github.io/chinese-markdown-cheatsheet/">&lt;p&gt;本中文版Markdown语法简介来自博客 &lt;a href=&quot;https://blog.shengbin.me/posts/markdown-syntax&quot;&gt;https://blog.shengbin.me/posts/markdown-syntax&lt;/a&gt;，并由我完成了汉化。其中的站位文字来自&lt;a href=&quot;https://suulnnka.github.io/BullshitGenerator/index.html&quot;&gt;狗屁不通文章生成器&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://daringfireball.net/projects/markdown/syntax&quot;&gt;Markdown语法的完整文档在这里&lt;/a&gt;。下面整理的这些为了方便写博客时参考。&lt;/p&gt;
+
+&lt;h2 id=&quot;分段与分行&quot;&gt;分段与分行&lt;/h2&gt;
+
+&lt;p&gt;以一个或多个空行来隔开段落；以两个或多个空格来段内换行。&lt;/p&gt;
+
+&lt;h2 id=&quot;标题&quot;&gt;标题&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;这是一级标题
+=============
+
+这是二级标题
+-------------
+
+# 一级标题
+
+##  二级标题
+
+######  六级标题
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;引用&quot;&gt;引用&lt;/h2&gt;
+
+&lt;p&gt;在每一行前面写一个&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt;：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; 这是一个引用段落。
+&amp;gt; 一般来讲，我们都必须务必慎重的考虑考虑。 了解清楚标记语言到底是一种怎么样的存在，是解决一切问题的关键。 
+&amp;gt; 一般来说， 莎士比亚曾经说过，抛弃时间的人，时间也抛弃他。这似乎解答了我的疑惑。 
+&amp;gt;
+&amp;gt; 笛卡儿曾经提到过，读一切好书，就是和许多高尚的人谈话。带着这句话，我们还要更加慎重的审视这个问题： 
+&amp;gt; 现在，解决标记语言的问题，是非常非常重要的。 
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;效果：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;这是一个引用段落。
+一般来讲，我们都必须务必慎重的考虑考虑。 了解清楚标记语言到底是一种怎么样的存在，是解决一切问题的关键。 
+一般来说， 莎士比亚曾经说过，抛弃时间的人，时间也抛弃他。这似乎解答了我的疑惑。&lt;/p&gt;
+
+  &lt;p&gt;笛卡儿曾经提到过，读一切好书，就是和许多高尚的人谈话。带着这句话，我们还要更加慎重的审视这个问题： 
+现在，解决标记语言的问题，是非常非常重要的。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;或者在每一段前面写一个&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt;：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; 这是一个引用段落。一般来讲，我们都必须务必慎重的考虑考虑。 了解清楚标记语言到底是一种怎么样的存在，是解决一切问题的关键。 一般来说， 莎士比亚曾经说过，抛弃时间的人，时间也抛弃他。这似乎解答了我的疑惑。
+
+&amp;gt; 笛卡儿曾经提到过，读一切好书，就是和许多高尚的人谈话。带着这句话，我们还要更加慎重的审视这个问题： 现在，解决标记语言的问题，是非常非常重要的。 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;多重引用&quot;&gt;多重引用&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; 这是第一层引用
+&amp;gt;
+&amp;gt; &amp;gt; 这是第二层引用
+&amp;gt;
+&amp;gt; 回到第一层
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;效果：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;这是第一层引用&lt;/p&gt;
+
+  &lt;blockquote&gt;
+    &lt;p&gt;这是第二层引用&lt;/p&gt;
+  &lt;/blockquote&gt;
+
+  &lt;p&gt;回到第一层&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;列表&quot;&gt;列表&lt;/h2&gt;
+
+&lt;p&gt;列表项占一行，以*、+、-开头即可：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;*   甲子
+*   乙丑
+*   丙寅
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;效果：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;甲子&lt;/li&gt;
+  &lt;li&gt;乙丑&lt;/li&gt;
+  &lt;li&gt;丙寅&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;有序列表只需要将上述标记符换成数字加句点。而且顺序由书写顺序决定，与数字无关，但数字需要从1开始。例如：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.  天
+3.  地
+2.  人
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;效果：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;天&lt;/li&gt;
+  &lt;li&gt;地&lt;/li&gt;
+  &lt;li&gt;人&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;每一个列表项可以多行：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;*  而这些并不是完全重要，更加重要的问题是，可是，即使是这样，标记语言的出现仍然代表了一定的意义。叔本华说过一句富有哲理的话，意志是一个强壮的盲人，倚靠在明眼的跛子肩上。这启发了我，要想清楚，标记语言，到底是一种怎么样的存在。
+*   伏尔泰说过一句富有哲理的话，坚持意志伟大的事业需要始终不渝的精神。这启发了我，本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。那么，标记语言因何而发生？了解清楚标记语言到底是一种怎么样的存在，是解决一切问题的关键。而这些并不是完全重要，更加重要的问题是，就我个人来说，标记语言对我的意义，不能不说非常重大。就我个人来说，标记语言对我的意义，不能不说非常重大。我们不得不面对一个非常尴尬的事实，那就是，总结的来说，标记语言因何而发生？
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;效果：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;而这些并不是完全重要，更加重要的问题是，可是，即使是这样，标记语言的出现仍然代表了一定的意义。叔本华说过一句富有哲理的话，意志是一个强壮的盲人，倚靠在明眼的跛子肩上。这启发了我，要想清楚，标记语言，到底是一种怎么样的存在。&lt;/li&gt;
+  &lt;li&gt;伏尔泰说过一句富有哲理的话，坚持意志伟大的事业需要始终不渝的精神。这启发了我，本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。那么，标记语言因何而发生？了解清楚标记语言到底是一种怎么样的存在，是解决一切问题的关键。而这些并不是完全重要，更加重要的问题是，就我个人来说，标记语言对我的意义，不能不说非常重大。就我个人来说，标记语言对我的意义，不能不说非常重大。我们不得不面对一个非常尴尬的事实，那就是，总结的来说，标记语言因何而发生？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;代码块&quot;&gt;代码块&lt;/h2&gt;
+
+&lt;p&gt;每一行前面缩进四个或以上个空格，就认为是开始了一段代码块。代码块内原样输出。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;这是一个普通段落
+
+    这是一个代码块
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;效果：&lt;/p&gt;
+
+&lt;p&gt;这是一个普通段落&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;这是一个代码块
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;横线&quot;&gt;横线&lt;/h2&gt;
+
+&lt;p&gt;三个或更多个&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-&lt;/code&gt;（它们之间可以有空格）会产生横线：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* * *
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;效果：&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;链接&quot;&gt;链接&lt;/h2&gt;
+
+&lt;p&gt;内嵌链接：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[链接文字](链接地址 &quot;链接描述&quot;) 
+例如 [Google](http://google.com/ &quot;Google&quot;)，[Yahoo](http://search.yahoo.com/ &quot;Yahoo Search&quot;)，[MSN](http://search.msn.com/ &quot;MSN Search&quot;).
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;效果：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;链接地址&quot; title=&quot;链接描述&quot;&gt;链接文字&lt;/a&gt; 
+例如 &lt;a href=&quot;http://google.com/&quot; title=&quot;Google&quot;&gt;Google&lt;/a&gt;，&lt;a href=&quot;http://search.yahoo.com/&quot; title=&quot;Yahoo Search&quot;&gt;Yahoo&lt;/a&gt;，&lt;a href=&quot;http://search.msn.com/&quot; title=&quot;MSN Search&quot;&gt;MSN&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;如果直接以链接地址作为链接文本，可以用如下快捷写法：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;http://www.shengbin.me&amp;gt; 效果：
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.shengbin.me&quot;&gt;http://www.shengbin.me&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;强调&quot;&gt;强调&lt;/h2&gt;
+
+&lt;p&gt;单个&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt;或&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_&lt;/code&gt;产生斜体，两个（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;**&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__&lt;/code&gt;）则产生粗体。例如：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;*斜体* _斜体_
+
+**粗体** **粗体**
+
+***又粗又斜*** ___又粗又斜___
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;效果：&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;斜体&lt;/em&gt; &lt;em&gt;斜体&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;粗体&lt;/strong&gt; &lt;strong&gt;粗体&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;又粗又斜&lt;/em&gt;&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;又粗又斜&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;内嵌代码&quot;&gt;内嵌代码&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;内嵌代码 `天地玄黄`
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;效果：&lt;/p&gt;
+
+&lt;p&gt;内嵌代码 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;天地玄黄&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;图片&quot;&gt;图片&lt;/h2&gt;
+
+&lt;p&gt;语法和链接相似，只是前面多个“!”&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![替代文字](图片url &quot;图片说明&quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;转义字符&quot;&gt;转义字符&lt;/h2&gt;
+
+&lt;p&gt;如果需要使用以上标记字符而不被Markdown理解为格式标记，需要用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\&lt;/code&gt;转义：例如&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\\&lt;/code&gt;，效果为\。&lt;/p&gt;</content><author><name></name></author><category term="sample" /><category term="markdown" /><summary type="html">本中文版Markdown语法简介来自博客 https://blog.shengbin.me/posts/markdown-syntax，并由我完成了汉化。其中的站位文字来自狗屁不通文章生成器。 Markdown语法的完整文档在这里。下面整理的这些为了方便写博客时参考。 分段与分行 以一个或多个空行来隔开段落；以两个或多个空格来段内换行。 标题 这是一级标题 ============= 这是二级标题 ------------- # 一级标题 ## 二级标题 ###### 六级标题 引用 在每一行前面写一个&amp;gt;： &amp;gt; 这是一个引用段落。 &amp;gt; 一般来讲，我们都必须务必慎重的考虑考虑。 了解清楚标记语言到底是一种怎么样的存在，是解决一切问题的关键。 &amp;gt; 一般来说， 莎士比亚曾经说过，抛弃时间的人，时间也抛弃他。这似乎解答了我的疑惑。 &amp;gt; &amp;gt; 笛卡儿曾经提到过，读一切好书，就是和许多高尚的人谈话。带着这句话，我们还要更加慎重的审视这个问题： &amp;gt; 现在，解决标记语言的问题，是非常非常重要的。 效果： 这是一个引用段落。 一般来讲，我们都必须务必慎重的考虑考虑。 了解清楚标记语言到底是一种怎么样的存在，是解决一切问题的关键。 一般来说， 莎士比亚曾经说过，抛弃时间的人，时间也抛弃他。这似乎解答了我的疑惑。 笛卡儿曾经提到过，读一切好书，就是和许多高尚的人谈话。带着这句话，我们还要更加慎重的审视这个问题： 现在，解决标记语言的问题，是非常非常重要的。 或者在每一段前面写一个&amp;gt;： &amp;gt; 这是一个引用段落。一般来讲，我们都必须务必慎重的考虑考虑。 了解清楚标记语言到底是一种怎么样的存在，是解决一切问题的关键。 一般来说， 莎士比亚曾经说过，抛弃时间的人，时间也抛弃他。这似乎解答了我的疑惑。 &amp;gt; 笛卡儿曾经提到过，读一切好书，就是和许多高尚的人谈话。带着这句话，我们还要更加慎重的审视这个问题： 现在，解决标记语言的问题，是非常非常重要的。 多重引用 &amp;gt; 这是第一层引用 &amp;gt; &amp;gt; &amp;gt; 这是第二层引用 &amp;gt; &amp;gt; 回到第一层 效果： 这是第一层引用 这是第二层引用 回到第一层 列表 列表项占一行，以*、+、-开头即可： * 甲子 * 乙丑 * 丙寅 效果： 甲子 乙丑 丙寅 有序列表只需要将上述标记符换成数字加句点。而且顺序由书写顺序决定，与数字无关，但数字需要从1开始。例如： 1. 天 3. 地 2. 人 效果： 天 地 人 每一个列表项可以多行： * 而这些并不是完全重要，更加重要的问题是，可是，即使是这样，标记语言的出现仍然代表了一定的意义。叔本华说过一句富有哲理的话，意志是一个强壮的盲人，倚靠在明眼的跛子肩上。这启发了我，要想清楚，标记语言，到底是一种怎么样的存在。 * 伏尔泰说过一句富有哲理的话，坚持意志伟大的事业需要始终不渝的精神。这启发了我，本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。那么，标记语言因何而发生？了解清楚标记语言到底是一种怎么样的存在，是解决一切问题的关键。而这些并不是完全重要，更加重要的问题是，就我个人来说，标记语言对我的意义，不能不说非常重大。就我个人来说，标记语言对我的意义，不能不说非常重大。我们不得不面对一个非常尴尬的事实，那就是，总结的来说，标记语言因何而发生？ 效果： 而这些并不是完全重要，更加重要的问题是，可是，即使是这样，标记语言的出现仍然代表了一定的意义。叔本华说过一句富有哲理的话，意志是一个强壮的盲人，倚靠在明眼的跛子肩上。这启发了我，要想清楚，标记语言，到底是一种怎么样的存在。 伏尔泰说过一句富有哲理的话，坚持意志伟大的事业需要始终不渝的精神。这启发了我，本人也是经过了深思熟虑，在每个日日夜夜思考这个问题。那么，标记语言因何而发生？了解清楚标记语言到底是一种怎么样的存在，是解决一切问题的关键。而这些并不是完全重要，更加重要的问题是，就我个人来说，标记语言对我的意义，不能不说非常重大。就我个人来说，标记语言对我的意义，不能不说非常重大。我们不得不面对一个非常尴尬的事实，那就是，总结的来说，标记语言因何而发生？ 代码块 每一行前面缩进四个或以上个空格，就认为是开始了一段代码块。代码块内原样输出。 这是一个普通段落 这是一个代码块 效果： 这是一个普通段落 这是一个代码块 横线 三个或更多个*、-（它们之间可以有空格）会产生横线： * * * 效果： 链接 内嵌链接： [链接文字](链接地址 &quot;链接描述&quot;) 例如 [Google](http://google.com/ &quot;Google&quot;)，[Yahoo](http://search.yahoo.com/ &quot;Yahoo Search&quot;)，[MSN](http://search.msn.com/ &quot;MSN Search&quot;). 效果： 链接文字 例如 Google，Yahoo，MSN. 如果直接以链接地址作为链接文本，可以用如下快捷写法： &amp;lt;http://www.shengbin.me&amp;gt; 效果： http://www.shengbin.me 强调 单个*或_产生斜体，两个（**、__）则产生粗体。例如： *斜体* _斜体_ **粗体** **粗体** ***又粗又斜*** ___又粗又斜___ 效果： 斜体 斜体 粗体 粗体 又粗又斜 又粗又斜 内嵌代码 内嵌代码 `天地玄黄` 效果： 内嵌代码 天地玄黄 图片 语法和链接相似，只是前面多个“!” ![替代文字](图片url &quot;图片说明&quot;) 转义字符 如果需要使用以上标记字符而不被Markdown理解为格式标记，需要用\转义：例如\\，效果为\。</summary></entry></feed>
