@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <title>Younger. – 星星</title>
+  <title>My first post test – Younger. – 星星</title>
 
       <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,11 +9,24 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="星星">
-    <meta property="og:description" content="星星" />
+    <meta name="description" content="LaTeX渲染已经在全站头部文件引入，可以直接使用，公式块上下使用$$标明，内联公式则用$.
+
+最好不要让公式出现在文章摘要里。
+
+Jekyll的默认文章摘要是第一段，但是我在使用中发现它选取摘要不是很稳定，因此加入了手动摘要分割线，默认为`
+" />
+    <meta property="og:description" content="LaTeX渲染已经在全站头部文件引入，可以直接使用，公式块上下使用$$标明，内联公式则用$.
+
+最好不要让公式出现在文章摘要里。
+
+Jekyll的默认文章摘要是第一段，但是我在使用中发现它选取摘要不是很稳定，因此加入了手动摘要分割线，默认为`
+" />
     
     <meta name="author" content="Younger." />
 
+    
+    <meta property="og:title" content="My first post test" />
+    <meta property="twitter:title" content="My first post test" />
     
   <!-- Async font loading -->
 <script>
@@ -153,27 +166,75 @@
 
     <div id="main" role="main" class="wrapper-content">
       <div class="container">
-        <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+        <article class="posts">
+  <h1>My first post test</h1>
 
-<div class="container">
-  <h1>404</h1>
+  <div clsss="meta">
+    <span class="author">
+      
+    </span>
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
+    <span class="date">
+      2020-09-02
+    </span>
+
+    <ul class="tag">
+      
+      <li>
+        <a href="http://localhost:4000/blog.github.io/tags#new_tag">
+          new_tag
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  <div class="entry">
+    <p>LaTeX渲染已经在全站头部文件引入，可以直接使用，公式块上下使用<code class="language-plaintext highlighter-rouge">$$</code>标明，内联公式则用<code class="language-plaintext highlighter-rouge">$</code>.</p>
+
+<p>最好不要让公式出现在文章摘要里。</p>
+
+<p>Jekyll的默认文章摘要是第一段，但是我在使用中发现它选取摘要不是很稳定，因此加入了手动摘要分割线，默认为<code class="language-plaintext highlighter-rouge">&lt;!-- more --&gt;</code>，并且加入了首页摘要的字符数限制。</p>
+
+<p>因此有特殊符号、内容的文章，建议将这些内容折叠在摘要以下。例如本文</p>
+
+<!-- more -->
+
+<p>My first blog</p>
+
+
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'loffer';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
 
+  
+</article>
+
+<div class="pagination">
+  
+    <span class="prev" >
+      <a href="http://localhost:4000/blog.github.io/math-test/">
+        ← 上一篇
+      </a>
+    </span>
+  
+  
+</div>
       </div>
     </div>
 
