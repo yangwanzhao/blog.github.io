@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/blog.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog.github.io/" rel="alternate" type="text/html" /><updated>2020-09-04T23:14:53-04:00</updated><id>http://localhost:4000/blog.github.io/feed.xml</id><title type="html">Younger.</title><subtitle>星星</subtitle><entry><title type="html">Python中的卷积与fft</title><link href="http://localhost:4000/blog.github.io/circulant-convolve/" rel="alternate" type="text/html" title="Python中的卷积与fft" /><published>2020-09-03T00:00:00-04:00</published><updated>2020-09-03T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/circulant-convolve</id><content type="html" xml:base="http://localhost:4000/blog.github.io/circulant-convolve/">&lt;p&gt;在学习circulant矩阵与卷积的联系过程中，想用python验证相关公式，发现以往所学的卷积与fft的知识要么就是未求甚解，要么就是忘的一干二净，所以本文整理相关概念以及在python中的实现。由于只是在计算机上实现，所以对于fft只涉及离散的情况，不讨论繁杂的公式。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/blog.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog.github.io/" rel="alternate" type="text/html" /><updated>2020-09-04T23:33:01-04:00</updated><id>http://localhost:4000/blog.github.io/feed.xml</id><title type="html">Younger.</title><subtitle>星星</subtitle><entry><title type="html">Python中的卷积与fft</title><link href="http://localhost:4000/blog.github.io/circulant-convolve/" rel="alternate" type="text/html" title="Python中的卷积与fft" /><published>2020-09-03T00:00:00-04:00</published><updated>2020-09-03T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/circulant-convolve</id><content type="html" xml:base="http://localhost:4000/blog.github.io/circulant-convolve/">&lt;p&gt;在学习circulant矩阵与卷积的联系过程中，想用python验证相关公式，发现以往所学的卷积与fft的知识要么就是未求甚解，要么就是忘的一干二净，所以本文整理相关概念以及在python中的实现。由于只是在计算机上实现，所以对于fft只涉及离散的情况，不讨论繁杂的公式。&lt;/p&gt;
 
 &lt;!-- more --&gt;
 
@@ -16,7 +16,7 @@
 
 &lt;p&gt;将__h__各点以x轴方向为起点逆时针排列成圆周，称为内圆；将__x__各点以x轴方向为起点顺时针排列成圆周，称为外圆。各位置元素对应相乘求和得到循环卷积的第一个结果。然后顺时针转动内圆各元素挪动一个位置，对应元素相乘求和，得循环卷积第二个结果。以此类推。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/Users/younger/Github/mypages/blog-local/images/2020-09-03/2020-09-03-1.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-1.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;线性卷积&quot;&gt;线性卷积&lt;/h3&gt;
 
@@ -26,7 +26,7 @@
 
 &lt;p&gt;将h以垂直方向镜像对称，将镜像后的最右边的元素与x的第一个元素对齐，各元素对应相乘，没有元素的位置补0，得到线性卷积的第一个结果。将镜像后的h往右挪动一个位置（现在h和x有两个位置重叠），各元素对应相乘，没有元素的位置补0，得到线性卷积的第二个结果。以此类推。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/Users/younger/Github/mypages/blog-local/images/2020-09-03/2020-09-03-2.jpg&quot; alt=&quot;linear convolution&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-2.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;卷积定理&quot;&gt;卷积定理&lt;/h2&gt;
 
@@ -139,7 +139,7 @@
 &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/Users/younger/Github/mypages/blog-local/images/2020-09-03/2020-09-03-3.png&quot; alt=&quot;res-1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-3.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;2d卷积定理&quot;&gt;2d卷积定理&lt;/h3&gt;
 
@@ -189,7 +189,7 @@
 &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/Users/younger/Github/mypages/blog-local/images/2020-09-03/2020-09-03-4.png&quot; alt=&quot;res-2&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-4.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;circulant矩阵与fft&quot;&gt;circulant矩阵与fft&lt;/h3&gt;
 
@@ -229,7 +229,7 @@
 &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/Users/younger/Github/mypages/blog-local/images/2020-09-03/2020-09-03-5.png&quot; alt=&quot;res-3&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="convolution" /><summary type="html">在学习circulant矩阵与卷积的联系过程中，想用python验证相关公式，发现以往所学的卷积与fft的知识要么就是未求甚解，要么就是忘的一干二净，所以本文整理相关概念以及在python中的实现。由于只是在计算机上实现，所以对于fft只涉及离散的情况，不讨论繁杂的公式。</summary></entry><entry><title type="html">My first post test</title><link href="http://localhost:4000/blog.github.io/firstBlog/" rel="alternate" type="text/html" title="My first post test" /><published>2020-09-02T00:00:00-04:00</published><updated>2020-09-02T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/firstBlog</id><content type="html" xml:base="http://localhost:4000/blog.github.io/firstBlog/">&lt;p&gt;LaTeX渲染已经在全站头部文件引入，可以直接使用，公式块上下使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$$&lt;/code&gt;标明，内联公式则用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-5.png&quot; alt=&quot;res-3&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="convolution" /><summary type="html">在学习circulant矩阵与卷积的联系过程中，想用python验证相关公式，发现以往所学的卷积与fft的知识要么就是未求甚解，要么就是忘的一干二净，所以本文整理相关概念以及在python中的实现。由于只是在计算机上实现，所以对于fft只涉及离散的情况，不讨论繁杂的公式。</summary></entry><entry><title type="html">My first post test</title><link href="http://localhost:4000/blog.github.io/firstBlog/" rel="alternate" type="text/html" title="My first post test" /><published>2020-09-02T00:00:00-04:00</published><updated>2020-09-02T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/firstBlog</id><content type="html" xml:base="http://localhost:4000/blog.github.io/firstBlog/">&lt;p&gt;LaTeX渲染已经在全站头部文件引入，可以直接使用，公式块上下使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$$&lt;/code&gt;标明，内联公式则用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;最好不要让公式出现在文章摘要里。&lt;/p&gt;
 
