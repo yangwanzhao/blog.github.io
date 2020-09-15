@@ -1,4 +1,219 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/blog.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog.github.io/" rel="alternate" type="text/html" /><updated>2020-09-06T16:22:29-04:00</updated><id>http://localhost:4000/blog.github.io/feed.xml</id><title type="html">Younger.</title><subtitle>星星</subtitle><entry><title type="html">Python中的卷积与fft</title><link href="http://localhost:4000/blog.github.io/circulant-convolve/" rel="alternate" type="text/html" title="Python中的卷积与fft" /><published>2020-09-03T00:00:00-04:00</published><updated>2020-09-03T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/circulant-convolve</id><content type="html" xml:base="http://localhost:4000/blog.github.io/circulant-convolve/">&lt;p&gt;在学习circulant矩阵与卷积的联系过程中，想用python验证相关公式，发现以往所学的卷积与fft的知识要么就是未求甚解，要么就是忘的一干二净，所以本文整理相关概念以及在python中的实现。由于只是在计算机上实现，所以对于fft只涉及离散的情况，不讨论繁杂的公式。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/blog.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog.github.io/" rel="alternate" type="text/html" /><updated>2020-09-15T18:05:03-04:00</updated><id>http://localhost:4000/blog.github.io/feed.xml</id><title type="html">Younger.</title><subtitle>星星</subtitle><entry><title type="html">Pytorch Chain Rule &amp;amp; Jacobian &amp;amp; Hessian</title><link href="http://localhost:4000/blog.github.io/pytorch-chain-rule/" rel="alternate" type="text/html" title="Pytorch Chain Rule &amp;amp; Jacobian &amp;amp; Hessian" /><published>2020-09-13T00:00:00-04:00</published><updated>2020-09-13T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/pytorch-chain-rule</id><content type="html" xml:base="http://localhost:4000/blog.github.io/pytorch-chain-rule/">&lt;p&gt;在学习pytorch tutorial的时候，看到numpy写的反向传播链式法则的代码，其中导数的求解是向量形式，有点没看明白，于是自己推了公式验证一下，在此记录，也算让自己留有关于求导在代码里是怎么表现的印象，而不是一味地依赖框架提供的自动求导的功能。&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;先上代码：&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;D_in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;D_out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# similar with randn in torch
+# which means the data is sampled from normal distribution
+# rand will generate average distribution
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;D_in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;D_out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;w1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D_in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;w2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;D_out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;learning_rate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1e-6&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# (N, H)
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;h_relu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maximum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# (N, H)
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h_relu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# (N, D_out)
+&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# corresponding elements are subtracted to get the loss
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# total loss is the sum of the losses of each element
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;loss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;square&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;grad_y_pred&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# (N, D_out)
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;grad_w2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h_relu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grad_y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# (H, D_out)
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;grad_h_relu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grad_y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# (N, H)
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;grad_h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grad_h_relu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# (N, H)
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;grad_h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;grad_w1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grad_h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# (D_in, H)
+&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;w1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;learning_rate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grad_w1&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;w2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;learning_rate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grad_w2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这是一个很简单的神经网络，tutorial利用numpy实现了前向与后向算法，本文关注的重点在于如何用numpy进行向量式的求导，以下对五个导数分别进行说明。&lt;/p&gt;
+
+&lt;p&gt;现有 $ h_relu $， $W_2$ 方便查阅：&lt;/p&gt;
+
+\[h\_relu =
+\left[
+\begin{matrix}
+ r_{11}      &amp;amp;  r_{12}    &amp;amp; \cdots &amp;amp;  r_{1,H}  \\
+ r_{21}      &amp;amp;  r_{22}        &amp;amp; \cdots    &amp;amp;  r_{2,H}      \\
+ \vdots      &amp;amp;  \vdots	      &amp;amp; \ddots    &amp;amp; \vdots \\
+ r_{N,1}     &amp;amp;  r_{N,2}   &amp;amp; \cdots &amp;amp;  r_{N,H}    \\
+\end{matrix}
+\right]\]
+
+\[W_2 = 
+\left[
+\begin{matrix}
+ w^2_{11}      &amp;amp;  w^2_{12}    &amp;amp; \cdots &amp;amp;  w^2_{1,D}  \\
+ w^2_{21}      &amp;amp;  w^2_{22}     &amp;amp; \cdots    &amp;amp;  w^2_{2,D}      \\
+ \vdots      &amp;amp;  \vdots	   &amp;amp; \ddots    &amp;amp; \vdots \\
+ w^2_{H,1}     &amp;amp;  w^2_{H,2}    &amp;amp; \cdots &amp;amp;  w^2_{H,D}    \\
+\end{matrix}
+\right]\]
+
+&lt;p&gt;要明白的是，在写代码求导的时候，对于这样的向量操作，不要简单套用链式法则公式，而是应该逐个元素验证。比如 $grad_w2$ 的计算就涉及到 $grad_y_pred$ 中的每一个元素，因此才有tutorial中的结果。此外，以下变量都是向量或矩阵形式，其代表的是loss对其中每一个元素的导数。&lt;/p&gt;
+
+&lt;h2 id=&quot;grad_y_pred&quot;&gt;grad_y_pred&lt;/h2&gt;
+
+&lt;p&gt;标量loss其实是对矩阵 $y_pred-y$ 中每一个元素代表的误差的求和，即：&lt;/p&gt;
+
+\[loss = l_{11} + l_{12} + l_{13} + ... + loss_{N, D}\]
+
+&lt;p&gt;其中N是样本数量，D是输出维度。&lt;/p&gt;
+
+&lt;p&gt;因此loss对 $y_pred$ 的导数在针对其中某一个变量的时候，其他变量均可忽视。易得:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;grad_y_pred&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y_pred&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;不用多说。&lt;/p&gt;
+
+&lt;h2 id=&quot;grad_w2&quot;&gt;grad_w2&lt;/h2&gt;
+
+&lt;p&gt;求loss对$W_2$的导数之前，先来看一下$y_pred$：&lt;/p&gt;
+
+\[y\_pred_{ij} = r_{i,1}*w^2_{1,j} + r_{i,2}*w^2_{2,j}+...+r_{i,H}*w^2_{H,j}\]
+
+&lt;p&gt;loss对$W_2$的导数，其实是对每一个$w_{i,j}$的导数。根据链式法则，对$w_{i,j}$的导数等于其对 $y_pred$ 的导数 $grad_y_pred_{i,j}$ 乘以 $y_pred$ 对 $w_{i,j}$ 的导数。这里需要注意的是，考虑loss对 $w_{i,j}$ 的导数的时候，不能顺着之前计算的结果，从某一个 $grad_y_pred_{i,j}$ 出发计算对$w_{i,j}$的导数，因为其值与每一个 $grad_y_pred_{i,j}$  都有关系。例如考虑$w_{1,1}$，参数上式，与其有关的包括 $y_pred_{1,1}$，$y_pred_{2,1}$，…，$y_pred_{N,1}$。因此对于$w^2_{i,j}$的导数，有下式：
+\(grad\_w2_{i,j} = grad\_y\_pred_{1,j}*r_{1,j}+grad\_y\_pred_{2,j}*r_{2,j}+...+grad\_y\_pred_{N,j}*r_{N,j}\)
+即：&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;grad_w2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h_relu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grad_y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;grad_h_relu&quot;&gt;grad_h_relu&lt;/h2&gt;
+
+&lt;p&gt;同理，loss对 $h_relu$ 的导数等于loss对 $y_pred$ 的导数 $grad_y_pred_{i,j}$ 乘以 $y_pred$ 对  $h_relu$  的导数。参照grad_w2中的式子，在 $y_pred_{ij}$ 中找与 $r_{i,j}$ 有关的那些$y_pred$，易得（公式可右滑）：&lt;/p&gt;
+
+\[grad\_h\_relu_{i,j} = grad\_y\_pred_{i,1}*w^2_{i,1}+grad\_y\_pred_{i,2}*w^2_{i,2}+...+grad\_y\_pred_{i,H}*w^2_{i,H}\]
+
+&lt;p&gt;即：&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;grad_h_relu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grad_y_pred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;grad_h&quot;&gt;grad_h&lt;/h2&gt;
+
+&lt;p&gt;同理，loss对 $h$ 的导数等于loss对 $h_relu$ 的导数 $grad_h_relu$ 乘以 $h_relu$ 对$h$  的导数。由上可得loss对每一个 $h_relu$ 中的元素的导数，即矩阵 $grad_h_relu$。而 $h_relu$ 对 $h$ 的导数即$relu$函数的导数。&lt;/p&gt;
+
+&lt;p&gt;考虑$relu$函数，此时其自变量为 $h$ ，当其中某值 $h_{i,j}$ 大于等于0时，$relu$ 对其导数为1，因此 $grad_h_{i,j}$ 等于$grad_h_relu_{i,j}$乘以1；当 $h_{i,j}$  小于0时，$relu$ 为常数0，因此求导得0。故有：&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;grad_h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grad_h_relu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;grad_h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;grad_w1&quot;&gt;grad_w1&lt;/h2&gt;
+
+&lt;p&gt;最后，loss对 $W_1$ 的导数等于loss对 $h$ 的导数 $grad_h$ 乘以 $h$ 对 $W_1$  的导数。&lt;/p&gt;
+
+&lt;p&gt;现有$h$如下：&lt;/p&gt;
+
+\[h =
+\left[
+\begin{matrix}
+ h_{11}      &amp;amp;  h_{12}    &amp;amp; \cdots &amp;amp;  h_{1,H}  \\
+ h_{21}      &amp;amp;  h_{22}        &amp;amp; \cdots    &amp;amp;  h_{2,H}      \\
+ \vdots      &amp;amp;  \vdots	      &amp;amp; \ddots    &amp;amp; \vdots \\
+ h_{N,1}     &amp;amp;  h_{N,2}   &amp;amp; \cdots &amp;amp;  h_{N,H}    \\
+\end{matrix}
+\right]\]
+
+&lt;p&gt;其中&lt;/p&gt;
+
+\[h_{i,j}=x_{i,1}*w_{1,j}+x_{i,2}*w_{2,j}+...+x_{i,I}*w_{I,j}\]
+
+&lt;p&gt;考虑$W_1$的其中一个参数$w_{i,j}^1$，与之相关的$h$包括$h_{1,j}, h_{2,j}, …, h_{N,j}$。因此找到loss对它们各自的导数$grad_h_{1,j}, grad_h_{2,j}, …, grad_h_{N,j}$，从而易得：&lt;/p&gt;
+
+\[grad\_w1_{i,j} = grad\_h_{1,j}*x_{1,i}+grad\_h_{2,j}*x_{2,i}+...+grad\_h_{N,j}*x_{N,i}\]
+
+&lt;p&gt;即：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grad_w1 = x.T.dot(grad_h)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;jacobian矩阵&quot;&gt;Jacobian矩阵&lt;/h2&gt;
+
+&lt;p&gt;对Jacobian的大致理解是，对于基于向量的函数$\vec{y}=f(\vec{x})$，其对于$\vec x$的导数即为一个Jacobian矩阵：&lt;/p&gt;
+
+\[J=
+\left[
+\begin{matrix}
+ \frac{\partial y_1}{\partial x_1}   &amp;amp; \cdots &amp;amp;  \frac{\partial y_1}{\partial x_n}  \\
+\vdots      &amp;amp; \ddots    &amp;amp;  \vdots      \\
+ \frac{\partial y_m}{\partial x_1}  &amp;amp; \cdots &amp;amp;   \frac{\partial y_m}{\partial x_n}    \\
+\end{matrix}
+\right]\]
+
+&lt;p&gt;可以将该矩阵想象成仅含有输入层与输出层的神经网络，输入层是n个x神经元，输出层是m个y神经元，它们之间有m*n个connection，从而构成上述维度为（m,n）的Jacobian矩阵。该矩阵一方面表示了输出对输入的偏导，另一方面引出神经网络反向传播一种特殊的求导情况。通常意义上，神经网络的反向传播是求loss对每个可训练参数的偏导数，其中loss是标量scalar，此时可以用pytorch的loss.backward()进行自动求导。但有的时候loss可能是vector，无法直接backward求导，这里需要的其实就是loss中各元素对所有参数的偏导数，即上述Jacobian矩阵，为了仍可以使用pytorch的backward函数，这里给该函数一个与loss同维度的参数:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;loss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;backward&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;相当于多定义了一层总的 $loss_sum=0.1 * loss_1+1.0 * loss_2 + 0.0001 * loss_3$ ，然后对loss_sum进行求导。那么loss_sum对各参数的导数即为：&lt;/p&gt;
+
+\[J^T \cdot v=
+\left[
+\begin{matrix}
+ \frac{\partial y_1}{\partial x_1}   &amp;amp; \cdots &amp;amp;  \frac{\partial y_m}{\partial x_1}  \\
+\vdots      &amp;amp; \ddots    &amp;amp;  \vdots      \\
+ \frac{\partial y_1}{\partial x_n}  &amp;amp; \cdots &amp;amp;   \frac{\partial y_m}{\partial x_n}    \\
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+ \frac{\partial l}{\partial y_1}   \\
+\vdots    \\
+ \frac{\partial l}{\partial y_m}    \\
+\end{matrix}
+\right]=
+\left[
+\begin{matrix}
+ \frac{\partial l}{\partial x_1}   \\
+\vdots    \\
+ \frac{\partial l}{\partial x_n}    \\
+\end{matrix}
+\right]\]
+
+&lt;p&gt;这种Jacobian矩阵形式的求导方式，即给backward参数的求导方式，可以为没有scalar输出的神经网络提供外部的导数。&lt;/p&gt;
+
+&lt;h2 id=&quot;hessian矩阵&quot;&gt;Hessian矩阵&lt;/h2&gt;
+
+&lt;p&gt;Hessian矩阵是自变量为向量的实值函数的二阶偏导数组成的方阵，该实值函数如下：&lt;/p&gt;
+
+\[f(x_1,x_2,...,x_n)\]
+
+&lt;p&gt;若该函数的所有二阶导都存在，那么其Hessian矩阵$H(f)$为：&lt;/p&gt;
+
+\[H(f) = 
+\left[
+\begin{matrix}
+ \frac{\partial^2 f}{\partial x_1^2}       &amp;amp;   \frac{\partial^2 f}{\partial x_1 \partial x_2}    &amp;amp; \cdots &amp;amp;  \frac{\partial^2 f}{\partial x_1 \partial x_n}  \\
+ \frac{\partial^2 f}{\partial x_2 \partial x_1}       &amp;amp;   \frac{\partial^2 f}{\partial x_2^2}    &amp;amp; \cdots &amp;amp;  \frac{\partial^2 f}{\partial x_2 \partial x_n}  \\
+ \vdots      &amp;amp;  \vdots	   &amp;amp; \ddots    &amp;amp; \vdots \\
+ \frac{\partial^2 f}{\partial x_n \partial x_1}       &amp;amp;   \frac{\partial^2 f}{\partial x_n \partial x_2}    &amp;amp; \cdots &amp;amp;  \frac{\partial^2 f}{\partial x_n^2}  \\
+\end{matrix}
+\right]\]
+
+&lt;p&gt;Hessian矩阵主要被用于最优化。最优化问题其实是求解函数导数为0时方程的根，于是将$f$在某探索点处二阶泰勒展开，并利用迭代的方式求得方程的根，其中用到了Hessian矩阵。该方法即经典的牛顿法，更多细节有待补充。&lt;/p&gt;
+
+&lt;p&gt;（参考自：&lt;a href=&quot;http://jacoxu.com/jacobian矩阵和hessian矩阵/&quot;&gt;http://jacoxu.com/jacobian矩阵和hessian矩阵/&lt;/a&gt;）&lt;/p&gt;</content><author><name></name></author><category term="pytorch" /><summary type="html">在学习pytorch tutorial的时候，看到numpy写的反向传播链式法则的代码，其中导数的求解是向量形式，有点没看明白，于是自己推了公式验证一下，在此记录，也算让自己留有关于求导在代码里是怎么表现的印象，而不是一味地依赖框架提供的自动求导的功能。</summary></entry><entry><title type="html">Pytorch Code Block</title><link href="http://localhost:4000/blog.github.io/pytorch-code-block/" rel="alternate" type="text/html" title="Pytorch Code Block" /><published>2020-09-08T00:00:00-04:00</published><updated>2020-09-08T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/pytorch-code-block</id><content type="html" xml:base="http://localhost:4000/blog.github.io/pytorch-code-block/">&lt;p&gt;搭建神经网络时，有一些常用的代码块，理解起来并不straightforward，但往往需要熟练掌握。这里记录常用的code block供翻阅与记忆。本文视research进度持续更新。&lt;/p&gt;
+
+&lt;!-- more --&gt;</content><author><name></name></author><category term="pytorch" /><summary type="html">搭建神经网络时，有一些常用的代码块，理解起来并不straightforward，但往往需要熟练掌握。这里记录常用的code block供翻阅与记忆。本文视research进度持续更新。</summary></entry><entry><title type="html">Python中的卷积与fft</title><link href="http://localhost:4000/blog.github.io/circulant-convolve/" rel="alternate" type="text/html" title="Python中的卷积与fft" /><published>2020-09-03T00:00:00-04:00</published><updated>2020-09-03T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/circulant-convolve</id><content type="html" xml:base="http://localhost:4000/blog.github.io/circulant-convolve/">&lt;p&gt;在学习circulant矩阵与卷积的联系过程中，想用python验证相关公式，发现以往所学的卷积与fft的知识要么就是未求甚解，要么就是忘的一干二净，所以本文整理相关概念以及在python中的实现。由于只是在计算机上实现，所以对于fft只涉及离散的情况，不讨论繁杂的公式。&lt;/p&gt;
 
 &lt;!-- more --&gt;
 
