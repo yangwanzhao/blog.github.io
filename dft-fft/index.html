@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <title>标签 – Younger. – 星星</title>
+  <title>DFT & FFT – Younger. – 星星</title>
 
       <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,14 +9,18 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="星星">
-    <meta property="og:description" content="星星" />
+    <meta name="description" content="对DFT以及FFT的理解还是不够透彻，这里从计算机离散的角度记录自己对DFT的理解，加深记忆。
+
+" />
+    <meta property="og:description" content="对DFT以及FFT的理解还是不够透彻，这里从计算机离散的角度记录自己对DFT的理解，加深记忆。
+
+" />
     
     <meta name="author" content="Younger." />
 
     
-    <meta property="og:title" content="标签" />
-    <meta property="twitter:title" content="标签" />
+    <meta property="og:title" content="DFT & FFT" />
+    <meta property="twitter:title" content="DFT & FFT" />
     
   <!-- Async font loading -->
 <script>
@@ -153,224 +157,97 @@
 </div>
 
     
+      <aside class="toc">
+        <ul>
+  <li><a href="#">DFT &amp; FFT</a>
+    <ul>
+      <li><a href="#一维dft变换">一维DFT变换</a></li>
+      <li><a href="#二维dft变换">二维DFT变换</a></li>
+      <li><a href="#fft变换">FFT变换</a></li>
+    </ul>
+  </li>
+</ul>
+      </aside>
+    
 
     <div id="main" role="main" class="wrapper-content">
       <div class="container">
-        <article class="page">
+        <article class="posts">
+  <h1>DFT & FFT</h1>
 
-  <h1>标签</h1>
+  <div clsss="meta">
+    <span class="author">
+      
+    </span>
+
+    <span class="date">
+      2020-09-17
+    </span>
+
+    <ul class="tag">
+      
+      <li>
+        <a href="http://localhost:4000/blog.github.io/tags#DSP">
+          DSP
+        </a>
+      </li>
+      
+    </ul>
+  </div>
 
   <div class="entry">
-    
+    <p>对DFT以及FFT的理解还是不够透彻，这里从计算机离散的角度记录自己对DFT的理解，加深记忆。</p>
 
-<div class="tags">
-  <ul class="label">
-    
-    <li>
-      <a href="#sample">
-        <span>sample</span>
-        <span class="count">2</span>
-      </a>
-    </li>
-    
-    <li>
-      <a href="#markdown">
-        <span>markdown</span>
-        <span class="count">1</span>
-      </a>
-    </li>
-    
-    <li>
-      <a href="#document">
-        <span>document</span>
-        <span class="count">1</span>
-      </a>
-    </li>
-    
-    <li>
-      <a href="#convolution">
-        <span>convolution</span>
-        <span class="count">1</span>
-      </a>
-    </li>
-    
-    <li>
-      <a href="#pytorch">
-        <span>pytorch</span>
-        <span class="count">2</span>
-      </a>
-    </li>
-    
-    <li>
-      <a href="#DSP">
-        <span>DSP</span>
-        <span class="count">1</span>
-      </a>
-    </li>
-    
-    <li>
-      <a href="#Frequency">
-        <span>Frequency</span>
-        <span class="count">1</span>
-      </a>
-    </li>
-    
-  </ul>
+<!-- more -->
 
-  
-    <h2 id="sample">
-      sample
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/math-test/">
-            
-                LaTex渲染的说明和测试
-              </a>
-              <time>2019-07-24</time>
-          </li>
-        
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/chinese-markdown-cheatsheet/">
-            
-                Markdown语法简介
-              </a>
-              <time>2013-07-16</time>
-          </li>
-        
-      
-    </ul>
-  
-    <h2 id="markdown">
-      markdown
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/chinese-markdown-cheatsheet/">
-            
-                Markdown语法简介
-              </a>
-              <time>2013-07-16</time>
-          </li>
-        
-      
-    </ul>
-  
-    <h2 id="document">
-      document
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/math-test/">
-            
-                LaTex渲染的说明和测试
-              </a>
-              <time>2019-07-24</time>
-          </li>
-        
-      
-    </ul>
-  
-    <h2 id="convolution">
-      convolution
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/circulant-convolve/">
-            
-                Python中的卷积与fft
-              </a>
-              <time>2020-09-03</time>
-          </li>
-        
-      
-    </ul>
-  
-    <h2 id="pytorch">
-      pytorch
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/pytorch-chain-rule/">
-            
-                Pytorch Chain Rule & Jacobian & Hessian
-              </a>
-              <time>2020-09-13</time>
-          </li>
-        
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/pytorch-code-block/">
-            
-                Pytorch Code Block
-              </a>
-              <time>2020-09-08</time>
-          </li>
-        
-      
-    </ul>
-  
-    <h2 id="DSP">
-      DSP
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/dft-fft/">
-            
-                DFT & FFT
-              </a>
-              <time>2020-09-17</time>
-          </li>
-        
-      
-    </ul>
-  
-    <h2 id="Frequency">
-      Frequency
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/batchnorm/">
-            
-                Batch Norm
-              </a>
-              <time>2020-09-18</time>
-          </li>
-        
-      
-    </ul>
-  
-</div>
+<h2 id="一维dft变换">一维DFT变换</h2>
+
+<p>DFT就是找出一段有限长的离散信号中各个频率正弦波的分量。一直以来都理解这句话，但是具体如何实现总是不清楚。之前看了一篇对FFT的<a href="https://charlesliuyx.github.io/2018/02/18/[直观详解]让你永远忘不了的傅里叶变换解析/">直观解读</a>，很有启发，但考虑到现在的工作多处理离散信号，因此这里只讨论离散信号的理解，对该直观解读的笔记待以后完善。</p>
+
+<p>说白了，DFT分析离散信号频率分量的方法，就是用相同长度但各种不同频率的余弦或负正弦信号，去与原信号求互相关。互相关的结果就是DFT变换之后该频率下的DFT函数值。容易理解，当原信号的频率分量包含所用的余弦或负正弦信号的频率值时，互相关系数会增大。</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">:</span><span class="mi">39</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nb">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)/</span><span class="mi">40</span><span class="p">);</span>
+<span class="nb">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>!original_signal</p>
+
+<div class="language-matlab highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="nb">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="p">(</span><span class="mi">0</span><span class="o">*</span><span class="n">n</span><span class="p">)/</span><span class="mi">40</span><span class="p">))</span>
+<span class="nb">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="nb">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">n</span><span class="p">)/</span><span class="mi">40</span><span class="p">))</span>
+<span class="nb">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="nb">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)/</span><span class="mi">40</span><span class="p">))</span>
+<span class="nb">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="nb">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">n</span><span class="p">)/</span><span class="mi">40</span><span class="p">))</span>
+<span class="nb">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="nb">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">n</span><span class="p">)/</span><span class="mi">40</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="二维dft变换">二维DFT变换</h2>
+
+<h2 id="fft变换">FFT变换</h2>
+
+<p>参考自<a href="https://www.zhihu.com/question/21314374">知乎-肖畅</a></p>
 
   </div>
+
+  
+  
 </article>
 
+<div class="pagination">
+  
+    <span class="prev" >
+      <a href="http://localhost:4000/blog.github.io/pytorch-chain-rule/">
+        ← 上一篇
+      </a>
+    </span>
+  
+  
+    <span class="next" >
+      <a href="http://localhost:4000/blog.github.io/batchnorm/">
+        下一篇 →
+      </a>
+    </span>
+  
+</div>
       </div>
     </div>
 
@@ -378,6 +255,10 @@
 
   </body>
 
+  
+  <script>
+    document.getElementById("main").classList.add("withtoc");
+  </script>
   
 
   <div class="wrapper-footer-mobile">

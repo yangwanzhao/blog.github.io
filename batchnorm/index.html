@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <title>标签 – Younger. – 星星</title>
+  <title>Batch Norm – Younger. – 星星</title>
 
       <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,14 +9,18 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="星星">
-    <meta property="og:description" content="星星" />
+    <meta name="description" content="老师推荐了一篇CVPR，从图像频域的角度尝试解读模型的泛化能力，其中提到模型有时会着重学习图像的高频信息，该特征也从另一个角度解释了Batch Norm为什么会发挥作用。借此机会深入理解一下Batch Norm以及其与图像频域的关系。
+
+" />
+    <meta property="og:description" content="老师推荐了一篇CVPR，从图像频域的角度尝试解读模型的泛化能力，其中提到模型有时会着重学习图像的高频信息，该特征也从另一个角度解释了Batch Norm为什么会发挥作用。借此机会深入理解一下Batch Norm以及其与图像频域的关系。
+
+" />
     
     <meta name="author" content="Younger." />
 
     
-    <meta property="og:title" content="标签" />
-    <meta property="twitter:title" content="标签" />
+    <meta property="og:title" content="Batch Norm" />
+    <meta property="twitter:title" content="Batch Norm" />
     
   <!-- Async font loading -->
 <script>
@@ -153,224 +157,62 @@
 </div>
 
     
+      <aside class="toc">
+        <ul>
+  <li><a href="#">Batch Norm</a></li>
+</ul>
+      </aside>
+    
 
     <div id="main" role="main" class="wrapper-content">
       <div class="container">
-        <article class="page">
+        <article class="posts">
+  <h1>Batch Norm</h1>
 
-  <h1>标签</h1>
+  <div clsss="meta">
+    <span class="author">
+      
+    </span>
+
+    <span class="date">
+      2020-09-18
+    </span>
+
+    <ul class="tag">
+      
+      <li>
+        <a href="http://localhost:4000/blog.github.io/tags#Frequency">
+          Frequency
+        </a>
+      </li>
+      
+    </ul>
+  </div>
 
   <div class="entry">
-    
+    <p>老师推荐了一篇CVPR，从图像频域的角度尝试解读模型的泛化能力，其中提到模型有时会着重学习图像的高频信息，该特征也从另一个角度解释了Batch Norm为什么会发挥作用。借此机会深入理解一下Batch Norm以及其与图像频域的关系。</p>
 
-<div class="tags">
-  <ul class="label">
-    
-    <li>
-      <a href="#sample">
-        <span>sample</span>
-        <span class="count">2</span>
-      </a>
-    </li>
-    
-    <li>
-      <a href="#markdown">
-        <span>markdown</span>
-        <span class="count">1</span>
-      </a>
-    </li>
-    
-    <li>
-      <a href="#document">
-        <span>document</span>
-        <span class="count">1</span>
-      </a>
-    </li>
-    
-    <li>
-      <a href="#convolution">
-        <span>convolution</span>
-        <span class="count">1</span>
-      </a>
-    </li>
-    
-    <li>
-      <a href="#pytorch">
-        <span>pytorch</span>
-        <span class="count">2</span>
-      </a>
-    </li>
-    
-    <li>
-      <a href="#DSP">
-        <span>DSP</span>
-        <span class="count">1</span>
-      </a>
-    </li>
-    
-    <li>
-      <a href="#Frequency">
-        <span>Frequency</span>
-        <span class="count">1</span>
-      </a>
-    </li>
-    
-  </ul>
+<!-- more -->
 
-  
-    <h2 id="sample">
-      sample
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/math-test/">
-            
-                LaTex渲染的说明和测试
-              </a>
-              <time>2019-07-24</time>
-          </li>
-        
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/chinese-markdown-cheatsheet/">
-            
-                Markdown语法简介
-              </a>
-              <time>2013-07-16</time>
-          </li>
-        
-      
-    </ul>
-  
-    <h2 id="markdown">
-      markdown
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/chinese-markdown-cheatsheet/">
-            
-                Markdown语法简介
-              </a>
-              <time>2013-07-16</time>
-          </li>
-        
-      
-    </ul>
-  
-    <h2 id="document">
-      document
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/math-test/">
-            
-                LaTex渲染的说明和测试
-              </a>
-              <time>2019-07-24</time>
-          </li>
-        
-      
-    </ul>
-  
-    <h2 id="convolution">
-      convolution
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/circulant-convolve/">
-            
-                Python中的卷积与fft
-              </a>
-              <time>2020-09-03</time>
-          </li>
-        
-      
-    </ul>
-  
-    <h2 id="pytorch">
-      pytorch
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/pytorch-chain-rule/">
-            
-                Pytorch Chain Rule & Jacobian & Hessian
-              </a>
-              <time>2020-09-13</time>
-          </li>
-        
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/pytorch-code-block/">
-            
-                Pytorch Code Block
-              </a>
-              <time>2020-09-08</time>
-          </li>
-        
-      
-    </ul>
-  
-    <h2 id="DSP">
-      DSP
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/dft-fft/">
-            
-                DFT & FFT
-              </a>
-              <time>2020-09-17</time>
-          </li>
-        
-      
-    </ul>
-  
-    <h2 id="Frequency">
-      Frequency
-    </h2>
-    <ul class="tag">
-      
-        
-          <li>
-            
-              <a href="/blog.github.io/batchnorm/">
-            
-                Batch Norm
-              </a>
-              <time>2020-09-18</time>
-          </li>
-        
-      
-    </ul>
-  
-</div>
+<p>吴恩达
+https://www.youtube.com/watch?v=nUUqwaxLnWs</p>
 
   </div>
+
+  
+  
 </article>
 
+<div class="pagination">
+  
+    <span class="prev" >
+      <a href="http://localhost:4000/blog.github.io/dft-fft/">
+        ← 上一篇
+      </a>
+    </span>
+  
+  
+</div>
       </div>
     </div>
 
@@ -378,6 +220,10 @@
 
   </body>
 
+  
+  <script>
+    document.getElementById("main").classList.add("withtoc");
+  </script>
   
 
   <div class="wrapper-footer-mobile">
