@@ -226,27 +226,53 @@
 
 <p>卷积分为循环卷积与线性卷积，因为只考虑离散情况下一维向量或二维矩阵的情况，所以只需要从向量角度理解这两种卷积如何操作，不需要考虑连续情况下的卷积公式。</p>
 
-<p>若考虑向量h与向量x进行卷积：</p>
+<p>若考虑向量 <strong>h</strong> 与向量 <strong>x</strong> 进行卷积：</p>
 
 <h3 id="循环卷积">循环卷积</h3>
 
 <blockquote>
-  <p>循环卷积就是用h去加权x各个循环位移版本再求和</p>
+  <p>循环卷积就是用 h 去加权 x 各个循环位移版本再求和</p>
 </blockquote>
 
-<p>将__h__各点以x轴方向为起点逆时针排列成圆周，称为内圆；将__x__各点以x轴方向为起点顺时针排列成圆周，称为外圆。各位置元素对应相乘求和得到循环卷积的第一个结果。然后顺时针转动内圆各元素挪动一个位置，对应元素相乘求和，得循环卷积第二个结果。以此类推。</p>
+<p>将 <strong>h</strong> 各点以x轴方向为起点逆时针排列成圆周，称为内圆；将 <strong>x</strong> 各点以x轴方向为起点顺时针排列成圆周，称为外圆。各位置元素对应相乘求和得到循环卷积的第一个结果。然后顺时针转动内圆各元素挪动一个位置，对应元素相乘求和，得循环卷积第二个结果。以此类推。</p>
 
-<p><img src="https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-1.png" alt="img" /></p>
+<div align="center">
+<img src="https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-1.png" />
+</div>
+
+<p>循环卷积也可以通过循环矩阵的方式计算。同理考虑计算 <strong>h</strong> 与 <strong>x</strong> 的循环卷积:</p>
+
+\[\mathrm{\textbf{H}}*\mathrm{\textbf{x}} =
+\left[
+\begin{matrix}
+ h_1      &amp; h_{n} &amp; h_{n-1}   &amp; \cdots &amp; h_2   \\
+ h_2      &amp; h_1  &amp; h_n        &amp; \cdots &amp; h_3     \\
+ \vdots &amp; \vdots &amp; \vdots  	  &amp; \ddots &amp; \vdots  \\
+ h_{n} &amp; h_{n-1} &amp; h_{n-2}    &amp; \cdots &amp; h_1 \\
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+ x_1  \\
+ x_2 \\
+ \vdots  \\
+ x_{n}  \\
+\end{matrix}
+\right]\]
+
+<p>其中 $\mathrm{\textbf{H}}$ 是由 $\mathrm{\textbf{h}}$ 构造的循环矩阵。验证可得与上述内外圆的计算结果一致。</p>
 
 <h3 id="线性卷积">线性卷积</h3>
 
 <blockquote>
-  <p>线性卷积就是用h去加权x各个时延版本再求和</p>
+  <p>线性卷积就是用 h 去加权 x 各个时延版本再求和</p>
 </blockquote>
 
 <p>将h以垂直方向镜像对称，将镜像后的最右边的元素与x的第一个元素对齐，各元素对应相乘，没有元素的位置补0，得到线性卷积的第一个结果。将镜像后的h往右挪动一个位置（现在h和x有两个位置重叠），各元素对应相乘，没有元素的位置补0，得到线性卷积的第二个结果。以此类推。</p>
 
-<p><img src="https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-2.jpg" alt="img" /></p>
+<div align="center">
+<img src="https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-2.jpg" />
+</div>
 
 <h2 id="卷积定理">卷积定理</h2>
 
@@ -279,7 +305,7 @@
 
 \[\mathrm{\textbf{W}}\mathrm{\textbf{x}}=\mathrm{ifft}(\mathrm{fft(\mathrm{w}) \circ \mathrm{fft}(\mathrm{x})})=\mathrm{w}*\mathrm{x}\]
 
-<p>其中$\circ$表示对应元素相乘，$*$表示卷积。</p>
+<p>其中$\circ$表示对应元素相乘，$*$表示循环卷积。</p>
 
 <p>在该公式的帮助下，结合神经网络中$\mathrm{W}$大多情况为block-circulant，可以将神经网络的运算变换到频域进行，从而实现加速计算的目的。</p>
 
@@ -299,24 +325,24 @@
 
 <h3 id="python中的fft函数">Python中的fft函数</h3>
 
-<p><code class="language-plaintext highlighter-rouge">numpy.fft.fft(x)</code></p>
+<p>对信号做一维fft： <code class="language-plaintext highlighter-rouge">numpy.fft.fft(x)</code></p>
 
-<p>对信号做一维fft</p>
+<p>对信号做二维fft：<code class="language-plaintext highlighter-rouge">numpy.fft.fft2(x)</code>，等价于<code class="language-plaintext highlighter-rouge">fft(fft(mat).T).T</code></p>
 
-<p><code class="language-plaintext highlighter-rouge">numpy.fft.fft2(x)</code></p>
-
-<p>等价于<code class="language-plaintext highlighter-rouge">fft(fft(mat).T).T</code></p>
-
-<p>值得一提的是，上述Python中卷积函数根据mode选项的不同，其结果维度也不同，当且仅当<code class="language-plaintext highlighter-rouge">mode='same'</code>的时候输出与输入同维度（在两个卷积项同维度的情况下）。然而，上述Python中的fft函数的输出总是与输入相同。这就导致当用卷积定理将二者联系起来的时候存在一些trick。从卷积定理的角度考虑，这里fft对应着循环卷积，因此在验证卷积定理的时候有两种情况：</p>
+<p>值得一提的是，上述Python中卷积函数根据mode选项的不同（’full’, ‘valid’, ‘same’），其结果维度也不同，其中’full’表示计算每一个可能的点， ‘valid’表示卷积核仅在范围内移动。然而，上述Python中的fft函数的输出总是与输入相同。这就导致当用卷积定理将二者联系起来的时候存在一些trick。从卷积定理的角度考虑，这里fft对应着循环卷积，因此在验证卷积定理的时候有两种情况：</p>
 
 <ul>
-  <li>使用上述Python的卷积函数进行线性卷积，需要对被fft的信号进行padding。下文代码对信号进行尾部的补0，或将矩阵向右向下进行补0扩充。（[ ]为什么这样就能和线性卷积对应？）</li>
-  <li>使用Python的卷积函数进行循环卷积，可直接fft并验证结果是否一致。下文代码中为手动计算循环卷积，如何用Python计算循环卷积有待完善。</li>
+  <li>使用上述Python的卷积函数进行线性卷积，需要对被fft的信号进行padding。下文代码对一维向量进行尾部的补0，对二维矩阵向右向下进行补0扩充，从而达到size的一致性。（[ ]为什么这样就能和线性卷积对应？）</li>
+  <li>使用Python的卷积函数进行循环卷积，可直接fft并验证结果是否一致。下文代码中为手动计算循环卷积，如何用Python计算循环卷积有待完善。但是此情况仅针对一维向量，二维矩阵没有讨论循环卷积。</li>
 </ul>
 
 <h2 id="代码实现">代码实现</h2>
 
 <h3 id="1d卷积定理">1d卷积定理</h3>
+
+<blockquote>
+  <p>包括线性卷积和循环卷积</p>
+</blockquote>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
 <span class="kn">from</span> <span class="nn">numpy.fft</span> <span class="kn">import</span> <span class="o">*</span>
@@ -362,57 +388,78 @@
 <span class="k">print</span><span class="p">(</span><span class="n">res4</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-3.png" alt="img" /></p>
+<div align="center">
+<img src="https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-3.png" />
+</div>
 
 <h3 id="2d卷积定理">2d卷积定理</h3>
 
 <blockquote>
-  <p>未涉及对二维矩阵的循环卷积</p>
+  <p>仅包含线性卷积。</p>
+
+  <p>对于神经网络不完全线性卷积的操作，先按照线性卷积处理然后截取得到目标值</p>
 </blockquote>
+
+<p>该部分的细节对于频域神经网络尤为重要，故以图例说明。</p>
+
+<p>此处要解决的问题是，如何用频域的计算代替CNN网络中的一层卷积层。假设有输入矩阵$\mathrm{\textbf{X}}\in\mathrm{\textbf{R}}^{n\times n}$，卷积核$\mathrm{\textbf{W}}\in\mathrm{\textbf{R}}^{m\times m}$，$n&gt;m$，那么二者fully卷积后的尺寸为$n+m-1$，卷积层中的卷积操作后尺寸为$n-m+1$。这里的目标矩阵是卷积层的卷积操作的输出，显而易见的是该输出是fully卷积中间的一部分，因此为了通过频域的方法得到卷积层的输出，先按照由频域得到fully卷积的方法得到$n+m-1$的输出，然后从中截取目标矩阵即可。注意，在通过频域得到fully矩阵的过程中，需要对输入矩阵与卷积核进行补零，将size扩充为$n+m-1$从而得到正确的输出。矩阵size的细节如下图所示。</p>
+
+<div align="center">
+<img src="https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-6.png" />
+</div>
+
+<p>其中res: (n-m+1, n-m+1)即为所求。代码部分如下：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
 <span class="kn">from</span> <span class="nn">numpy.fft</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">9.3</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">],[</span><span class="mf">4.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],[</span><span class="mf">3.1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">],[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">],[</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">7.7</span><span class="p">,</span> <span class="mf">9.9</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">4.3</span><span class="p">]])</span>
+<span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">],[</span><span class="mf">4.2</span><span class="p">,</span> <span class="mf">6.1</span><span class="p">,</span> <span class="mf">4.9</span><span class="p">],[</span><span class="mf">3.1</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">7.4</span><span class="p">]])</span>
 
 <span class="k">print</span><span class="p">(</span><span class="s">'** X **: '</span><span class="p">,</span> <span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">** W **: '</span><span class="p">,</span> <span class="n">W</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="n">shape</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">W</span><span class="p">.</span><span class="n">shape</span>
+<span class="k">assert</span> <span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">,</span> <span class="s">"Kernal size should not be larger than input size"</span>
 
-<span class="c1"># convolve is more suitable for N-d. 
-# If you are processing 2-d, convolve2d has same results but is more efficient
-# signal.convolve2d will reverse the W vertically and horizontally
-# A 2-dimensional array containing a subset of the discrete linear convolution
-</span><span class="n">grad</span> <span class="o">=</span> <span class="n">signal</span><span class="p">.</span><span class="n">convolve2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s">'full'</span><span class="p">)</span> 
 
-<span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">** grad=X # W **: '</span><span class="p">,</span> <span class="n">grad</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">grad</span> <span class="o">=</span> <span class="n">signal</span><span class="p">.</span><span class="n">convolve2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s">'full'</span><span class="p">)</span> 
+<span class="n">grad_1</span> <span class="o">=</span> <span class="n">signal</span><span class="p">.</span><span class="n">convolve2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'valid'</span><span class="p">)</span> 
+
+<span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">** grad=X # W; full**: '</span><span class="p">,</span> <span class="n">grad</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">grad</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">** grad=X # W; valid **: '</span><span class="p">,</span> <span class="n">grad_1</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">grad_1</span><span class="p">)</span>
 
-<span class="c1"># fft2 &lt;=&gt; fft(fft(mat).T).T
-</span><span class="n">res1</span> <span class="o">=</span> <span class="n">fft2</span><span class="p">(</span><span class="n">grad</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">** res1=F(X#W) **: '</span><span class="p">,</span> <span class="n">res1</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">res1</span><span class="p">)</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">pad</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="s">'constant'</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">pad</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">W</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="n">W</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="s">'constant'</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n\n</span><span class="s">After Padding to N+M-1:'</span><span class="p">)</span>
+<span class="n">out_size_row</span> <span class="o">=</span> <span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">out_size_col</span> <span class="o">=</span> <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n\n</span><span class="s">After Padding:'</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">pad</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">out_size_row</span> <span class="o">-</span> <span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]),(</span><span class="mi">0</span><span class="p">,</span> <span class="n">out_size_col</span> <span class="o">-</span> <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="s">'constant'</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">pad</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">out_size_row</span> <span class="o">-</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">]),(</span><span class="mi">0</span><span class="p">,</span> <span class="n">out_size_col</span> <span class="o">-</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="s">'constant'</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+
 <span class="k">print</span><span class="p">(</span><span class="s">'** X **: '</span><span class="p">,</span> <span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">** W **: '</span><span class="p">,</span> <span class="n">W</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
 
-<span class="n">res2</span> <span class="o">=</span> <span class="n">fft2</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">*</span><span class="n">fft2</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">** res2=F(X)*F(W) **: '</span><span class="p">,</span> <span class="n">res2</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">Cut out the target part'</span><span class="p">)</span>
+<span class="n">res2</span> <span class="o">=</span> <span class="n">ifft2</span><span class="p">(</span><span class="n">fft2</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">*</span><span class="n">fft2</span><span class="p">(</span><span class="n">W</span><span class="p">))</span>
+<span class="n">res2</span> <span class="o">=</span> <span class="n">res2</span><span class="p">[</span><span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'** res2=iFFT(F(X)*F(W)) **: '</span><span class="p">,</span> <span class="n">res2</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">res2</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-4.png" alt="img" /></p>
+<div align="center">
+<img src="https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-4.png" />
+</div>
 
 <h3 id="circulant矩阵与fft">circulant矩阵与fft</h3>
 
@@ -452,7 +499,9 @@
 <span class="k">print</span><span class="p">(</span><span class="n">res4</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-5.png" alt="res-3" /></p>
+<div align="center">
+<img src="https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-5.png" />
+</div>
 
 
   </div>
