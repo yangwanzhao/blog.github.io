@@ -1,6 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/blog.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog.github.io/" rel="alternate" type="text/html" /><updated>2020-09-26T19:10:17-04:00</updated><id>http://localhost:4000/blog.github.io/feed.xml</id><title type="html">Younger.</title><subtitle>星星</subtitle><entry><title type="html">Batch Norm</title><link href="http://localhost:4000/blog.github.io/batchnorm/" rel="alternate" type="text/html" title="Batch Norm" /><published>2020-09-18T00:00:00-04:00</published><updated>2020-09-18T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/batchnorm</id><content type="html" xml:base="http://localhost:4000/blog.github.io/batchnorm/">&lt;p&gt;老师推荐了一篇CVPR，从图像频域的角度尝试解读模型的泛化能力，其中提到模型有时会着重学习图像的高频信息，该特征也从另一个角度解释了Batch Norm为什么会发挥作用。借此机会深入理解一下Batch Norm以及其与图像频域的关系。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/blog.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog.github.io/" rel="alternate" type="text/html" /><updated>2020-10-05T11:12:54-04:00</updated><id>http://localhost:4000/blog.github.io/feed.xml</id><title type="html">Younger.</title><subtitle>星星</subtitle><entry><title type="html">Batch Norm</title><link href="http://localhost:4000/blog.github.io/batchnorm/" rel="alternate" type="text/html" title="Batch Norm" /><published>2020-09-18T00:00:00-04:00</published><updated>2020-09-18T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/batchnorm</id><content type="html" xml:base="http://localhost:4000/blog.github.io/batchnorm/">&lt;p&gt;老师推荐了一篇CVPR，从图像频域的角度尝试解读模型的泛化能力，其中提到模型有时会着重学习图像的高频信息，该特征也从另一个角度解释了Batch Norm为什么会发挥作用。借此机会深入理解一下Batch Norm以及其与图像频域的关系。&lt;/p&gt;
 
 &lt;!-- more --&gt;
+
+&lt;p&gt;前提&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;神经网络学习的是数据的分布，如果数据分布变了，网络就不管用了。&lt;/li&gt;
+  &lt;li&gt;神经网络的训练是以minibatch为单位，即每次更新weights只会看到minibatch中的数据。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;考虑多层隐藏层的神经网络，对第二层隐藏层而言，第一层隐藏层就是其输入，但实际情况中，神经网络会更新所有的weights，这样就算所有batch的数据分布都相同，第一层隐藏层的输出分布还是会变化，所以对第二层隐藏层而言，其输入每次都会变化，导致不太容易学习到原有数据的分布。batchnormalization的作用就是将每一层的输出规范到特定的均值和方差上，使得每一层的输出相对下一层而言相对稳定，利于下游层的训练。此外，batchnormalization的另一个作用是对每一层的输出加上轻微的noise，其功效类似于dropout，有利于下游网络的overfitting，更利于神经网络的泛化。&lt;/p&gt;
+
+&lt;p&gt;提到泛化，导读中的论文研究了batchnormalization究竟是如何利于网络泛化的。&lt;/p&gt;
 
 &lt;p&gt;吴恩达
 https://www.youtube.com/watch?v=nUUqwaxLnWs&lt;/p&gt;</content><author><name></name></author><category term="Frequency" /><summary type="html">老师推荐了一篇CVPR，从图像频域的角度尝试解读模型的泛化能力，其中提到模型有时会着重学习图像的高频信息，该特征也从另一个角度解释了Batch Norm为什么会发挥作用。借此机会深入理解一下Batch Norm以及其与图像频域的关系。</summary></entry><entry><title type="html">DFT &amp;amp; FFT</title><link href="http://localhost:4000/blog.github.io/dft-fft/" rel="alternate" type="text/html" title="DFT &amp;amp; FFT" /><published>2020-09-17T00:00:00-04:00</published><updated>2020-09-17T00:00:00-04:00</updated><id>http://localhost:4000/blog.github.io/dft-fft</id><content type="html" xml:base="http://localhost:4000/blog.github.io/dft-fft/">&lt;p&gt;对DFT以及FFT的理解还是不够透彻，这里从计算机离散的角度记录自己对DFT的理解，加深记忆。&lt;/p&gt;
@@ -290,6 +301,10 @@ https://www.youtube.com/watch?v=nUUqwaxLnWs&lt;/p&gt;</content><author><name></n
 
 &lt;p&gt;其中 $\mathrm{\textbf{H}}$ 是由 $\mathrm{\textbf{h}}$ 构造的循环矩阵。验证可得与上述内外圆的计算结果一致。&lt;/p&gt;
 
+&lt;p&gt;循环卷积要求输入序列长度相同，两个长度为N的序列循环卷积的结果长度也为N。从卷积定理的角度，循环卷积直接等价于频域相乘，不需要任何padding。&lt;/p&gt;
+
+\[f_1(t)*f_2(t)=ifft( fft_1(w)\cdot fft_2(w) )\]
+
 &lt;h3 id=&quot;线性卷积&quot;&gt;线性卷积&lt;/h3&gt;
 
 &lt;blockquote&gt;
@@ -301,6 +316,7 @@ https://www.youtube.com/watch?v=nUUqwaxLnWs&lt;/p&gt;</content><author><name></n
 &lt;div align=&quot;center&quot;&gt;
 &lt;img src=&quot;https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-2.jpg&quot; /&gt;
 &lt;/div&gt;
+&lt;p&gt;线性卷积不要求输入序列长度相同，两个长度分别为N和M的序列线性卷积，结果长度为N+M-1。线性卷积也可通过将两信号padding到目标长度N+M-1后进行循环卷积得到。&lt;/p&gt;
 
 &lt;h2 id=&quot;卷积定理&quot;&gt;卷积定理&lt;/h2&gt;
 

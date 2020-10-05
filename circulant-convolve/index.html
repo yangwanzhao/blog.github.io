@@ -262,6 +262,10 @@
 
 <p>其中 $\mathrm{\textbf{H}}$ 是由 $\mathrm{\textbf{h}}$ 构造的循环矩阵。验证可得与上述内外圆的计算结果一致。</p>
 
+<p>循环卷积要求输入序列长度相同，两个长度为N的序列循环卷积的结果长度也为N。从卷积定理的角度，循环卷积直接等价于频域相乘，不需要任何padding。</p>
+
+\[f_1(t)*f_2(t)=ifft( fft_1(w)\cdot fft_2(w) )\]
+
 <h3 id="线性卷积">线性卷积</h3>
 
 <blockquote>
@@ -273,6 +277,7 @@
 <div align="center">
 <img src="https://yangwanzhao.github.io/blog.github.io/images/2020-09-03/2020-09-03-2.jpg" />
 </div>
+<p>线性卷积不要求输入序列长度相同，两个长度分别为N和M的序列线性卷积，结果长度为N+M-1。线性卷积也可通过将两信号padding到目标长度N+M-1后进行循环卷积得到。</p>
 
 <h2 id="卷积定理">卷积定理</h2>
 

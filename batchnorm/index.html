@@ -194,6 +194,17 @@
 
 <!-- more -->
 
+<p>前提</p>
+
+<ol>
+  <li>神经网络学习的是数据的分布，如果数据分布变了，网络就不管用了。</li>
+  <li>神经网络的训练是以minibatch为单位，即每次更新weights只会看到minibatch中的数据。</li>
+</ol>
+
+<p>考虑多层隐藏层的神经网络，对第二层隐藏层而言，第一层隐藏层就是其输入，但实际情况中，神经网络会更新所有的weights，这样就算所有batch的数据分布都相同，第一层隐藏层的输出分布还是会变化，所以对第二层隐藏层而言，其输入每次都会变化，导致不太容易学习到原有数据的分布。batchnormalization的作用就是将每一层的输出规范到特定的均值和方差上，使得每一层的输出相对下一层而言相对稳定，利于下游层的训练。此外，batchnormalization的另一个作用是对每一层的输出加上轻微的noise，其功效类似于dropout，有利于下游网络的overfitting，更利于神经网络的泛化。</p>
+
+<p>提到泛化，导读中的论文研究了batchnormalization究竟是如何利于网络泛化的。</p>
+
 <p>吴恩达
 https://www.youtube.com/watch?v=nUUqwaxLnWs</p>
 
